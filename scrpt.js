@@ -14,7 +14,7 @@ var pageModifier = function(selText) {
 	div.setAttribute("align", "right");
 	div.style.position="fixed";
 	div.style.display="table-row";
-	div.style.height="700px";
+	//div.style.height="700px";
 	//div.style.overflowY="scroll";
 	div.style.overflowX="hidden";
 	div.style.zIndex="+1000000";
@@ -24,7 +24,7 @@ var pageModifier = function(selText) {
 	div.style.width="200px";
 	div.style.border="2px solid #6E6E6E";
 	//table.style.textAlign="center";
-	//div.style.backgroundColor="#FFFFCC";
+	div.style.backgroundColor="#D8D8D8";
 	div.style.color="#000000";
 	div.style.borderCollapse="collapse";
 	div.style.borderSpacing="5px";
@@ -34,6 +34,7 @@ var pageModifier = function(selText) {
 	var rowDiv = document.createElement("div");
 	rowDiv.style.display="table-row";
 	rowDiv.style.float="left";
+	rowDiv.style.backgroundColor='#808080';
 	//rowDiv.style.lineHeight="1";
 	rowDiv.style.paddingTop="0px";
 	rowDiv.style.width = "100%";
@@ -56,7 +57,7 @@ var pageModifier = function(selText) {
 	textDiv.style.verticalAlign="middle";
 	textDiv.style.display="table-cell";
 	textDiv.style.textAlign="left";
-	textDiv.innerHTML='<font face="Lucida Calligraphy" size="4x" color="#5C005C"><strong>'+"Related News"+'</strong></font>';
+	textDiv.innerHTML='<font face="Calibri" size="4x" color="white"><strong>'+"Related News"+'</strong></font>';
 	rowDiv.appendChild(textDiv);
 
 
@@ -95,7 +96,7 @@ var pageModifier = function(selText) {
 		}
 	}
 	console.log(encoded);
-	var URL = "http://10.10.30.104:8983/solr/TheHindu/select?q="+encoded+"&fl=article_title%2C+article_url&wt=json&indent=true";
+	var URL = "http://10.10.21.246:8983/solr/TheHindu/select?q="+encoded+"&fl=article_title%2C+article_url&wt=json&indent=true";
 	
 	var resp = null;
 	//resp = httpGet(URL);
@@ -123,8 +124,10 @@ var pageModifier = function(selText) {
 	*/
 	var j = 0, k = 0;
 	for (var i = 0; i < resp.response.docs.length; i++){	
+		if (i != 0 && title[k-1] != resp.response.docs[i].article_title[0]) {
 		lnk[j++] = resp.response.docs[i].article_url[0];
 		title[k++] = resp.response.docs[i].article_title[0];
+		}
 	}
 	/*
 	for (var i=0; i<lnk.length; i++) {
@@ -132,6 +135,7 @@ var pageModifier = function(selText) {
 		console.log(title[i]);
 	}
 	*/
+	
 	
 	for (var i = 0; i < k; i++){	
 		var rowDiv = document.createElement("div");
